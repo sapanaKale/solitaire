@@ -1,0 +1,81 @@
+.upperPart {
+	display: flex;
+	align-items: center;
+	align-content: space-between;
+	justify-content: space-between;
+	width: 100%;
+	height: 30%;
+	background-color: aliceblue;
+}
+
+.stock-waste {
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	padding: 2%;
+}
+
+.stock {
+	width: fit-content;
+	height: fit-content;
+	padding-right: 10%;
+}
+
+.waste {
+	width: 150px;
+}
+
+.foundations {
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	width:50%;
+	padding: 2%;
+}
+
+.foundation {
+	width: 150px;
+	height: 233px;
+	background-color: rgba(6, 5, 5, 0.2);
+	margin-right: 3%;
+	border-radius: 6px;
+}
+
+.pile {
+	width: 150px;
+	height: 230px;
+	margin: 1%;
+	background-color: rgba(6, 5, 5, 0.2);
+	border-radius: 7px;
+}
+
+img{
+	display: inline-block;
+}
+
+.tableau {
+	height: 600px;
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+}
+
+.stockCard {
+	width: 150px;
+}
+
+.card {
+	margin-bottom: -200px;
+	width: 150px;
+}
+
+
+.flippedCard {
+	position: relative;
+	top: 2%;
+	width: 150px;
+}
+
+main {
+	background-color: aliceblue;
+}

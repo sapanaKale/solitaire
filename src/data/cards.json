@@ -1,0 +1,62 @@
+{
+	"clubs": {
+		"1": "./cardsImages/AC.png",
+		"2": "./cardsImages/2C.png",
+		"3": "./cardsImages/3C.png",
+		"4": "./cardsImages/4C.png",
+		"5": "./cardsImages/5C.png",
+		"6": "./cardsImages/6C.png",
+		"7": "./cardsImages/7C.png",
+		"8": "./cardsImages/8C.png",
+		"9": "./cardsImages/9C.png",
+		"10": "./cardsImages/10C.png",
+		"11": "./cardsImages/JC.png",
+		"12": "./cardsImages/QC.png",
+		"13": "./cardsImages/KC.png"
+	},
+	"diamonds": {
+		"1": "./cardsImages/AD.png",
+		"2": "./cardsImages/2D.png",
+		"3": "./cardsImages/3D.png",
+		"4": "./cardsImages/4D.png",
+		"5": "./cardsImages/5D.png",
+		"6": "./cardsImages/6D.png",
+		"7": "./cardsImages/7D.png",
+		"8": "./cardsImages/8D.png",
+		"9": "./cardsImages/9D.png",
+		"10": "./cardsImages/10D.png",
+		"11": "./cardsImages/JD.png",
+		"12": "./cardsImages/QD.png",
+		"13": "./cardsImages/KD.png"
+	},
+	"hearts": {
+		"1": "./cardsImages/AH.png",
+		"2": "./cardsImages/2H.png",
+		"3": "./cardsImages/3H.png",
+		"4": "./cardsImages/4H.png",
+		"5": "./cardsImages/5H.png",
+		"6": "./cardsImages/6H.png",
+		"7": "./cardsImages/7H.png",
+		"8": "./cardsImages/8H.png",
+		"9": "./cardsImages/9H.png",
+		"10": "./cardsImages/10H.png",
+		"11": "./cardsImages/JH.png",
+		"12": "./cardsImages/QH.png",
+		"13": "./cardsImages/KH.png"
+	},
+	"spades": {
+		"1": "./cardsImages/AS.png",
+		"2": "./cardsImages/2S.png",
+		"3": "./cardsImages/3S.png",
+		"4": "./cardsImages/4S.png",
+		"5": "./cardsImages/5S.png",
+		"6": "./cardsImages/6S.png",
+		"7": "./cardsImages/7S.png",
+		"8": "./cardsImages/8S.png",
+		"9": "./cardsImages/9S.png",
+		"10": "./cardsImages/10S.png",
+		"11": "./cardsImages/JS.png",
+		"12": "./cardsImages/QS.png",
+		"13": "./cardsImages/KS.png"
+	}
+}
