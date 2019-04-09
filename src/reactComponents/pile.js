@@ -21,6 +21,8 @@ class Pile extends Component {
 		this.removeCard = this.removeCard.bind(this);
 		this.dragStart = this.dragStart.bind(this);
 		this.drop = this.drop.bind(this);
+		this.getCardIndex = this.getCardIndex.bind(this);
+		this.updateCard = this.updateCard.bind(this);
 	}
 
 	componentDidMount() {
@@ -34,7 +36,8 @@ class Pile extends Component {
 	}
 
 	dragStart(event) {
-		event.dataTransfer.setData("text", event.target.id)
+		event.dataTransfer.setData("text", event.target.id);
+		event.dataTransfer.setDragImage(event.target.parentNode, 0, 0);
 	}
 
 	removeCard() {
@@ -53,7 +56,7 @@ class Pile extends Component {
 	getUpcards(cards) {
 		let upCards = [];
 		cards.forEach(element => {
-			upCards.push(<div draggable='true' onDragStart={this.dragStart} >{element}</div>);
+			upCards.push(<div draggable='true' onDragStart={this.dragStart} key={element.id}>{element}</div>);
 		});
 		return upCards;
 	}
@@ -62,8 +65,64 @@ class Pile extends Component {
 		event.preventDefault();
 	}
 
+	getCardIndex(card) {
+		return this.state.upCards.findIndex(upcard => {
+			return upcard.props.children.props.id === card.id;
+		});
+	}
+
+	getUpcardsFrom(cardPosition) {
+		return this.state.upCards.slice(cardPosition);
+	}
+
+	removeCardsFrom(cardPosition) {
+		this.setState(state => {
+			state.upCards.splice(cardPosition);
+			if (state.upCards.length === 0) {
+				state.upCards.push(this.getUpcards(state.cards.splice(0, 1))[0]);
+				this.componentDidMount();
+			}
+			return { upCards: state.upCards, cards: state.cards, downCards: this.getInitialDowncards(state.cards) }
+		})
+	}
+
 	drop(event) {
 		let card = document.getElementById(event.dataTransfer.getData("text"));
+		let cardLocation = card.parentNode.parentNode.parentNode;
+		let cardRef = window[cardLocation.id];
+		if (cardLocation.className === 'pile') {
+			let cardDetails = { suit: card.id.split('-')[0], rank: card.id.split('-')[1], id: card.id };
+			cardDetails.color = this.colors[cardDetails.suit];
+			if ((this.state.upCards[0] === undefined && cardDetails.rank === "13") || (this.state.lastColor !== cardDetails.color && cardDetails.rank === this.state.currentRank.toString())) {
+				let pos = cardRef.getCardIndex(card);
+				let upcards = cardRef.getUpcardsFrom(pos);
+				let cards = [];
+				for (let index = 0; index < upcards.length; index++) {
+					let card = document.getElementById(upcards[index].props.children.props.id);
+					let cardDetails = { suit: card.id.split('-')[0], rank: card.id.split('-')[1], id: card.id };
+					cardDetails.color = this.colors[cardDetails.suit];
+					cards.push(
+						<div draggable="true" onDragStart={this.dragStart} key={card.id}>
+							<Card src={card.src} id={card.id} className={card.className} suit={cardDetails.suit} rank={cardDetails.rank} />
+						</div>
+					)
+				}
+				this.setState(state => {
+					cards.forEach(card => state.upCards.push(card));
+					return {
+						upCards: state.upCards,
+						lastColor: cards[cards.length - 1].props.children.props.color,
+						currentRank: cards[cards.length - 1].props.children.props.rank - 1
+					}
+				})
+				cardRef.removeCardsFrom(pos);
+			}
+		} else {
+			this.updateCard(card);
+		}
+	}
+
+	updateCard(card) {
 		let cardDetails = { suit: card.id.split('-')[0], rank: card.id.split('-')[1], id: card.id };
 		cardDetails.color = this.colors[cardDetails.suit];
 		if ((this.state.upCards[0] === undefined && cardDetails.rank === "13") || (this.state.lastColor !== cardDetails.color && cardDetails.rank === this.state.currentRank.toString())) {
