@@ -13,21 +13,12 @@ class Foundation extends Component {
 		this.isNextCard = this.isNextCard.bind(this);
 		this.dragStart = this.dragStart.bind(this);
 		this.removeCard = this.removeCard.bind(this);
+		this.isCardAddable = this.isCardAddable.bind(this);
 	}
 
-	allowDrop(event) {
-		event.preventDefault();
-	}
 
 	dragStart(event) {
 		event.dataTransfer.setData("text", event.target.id)
-	}
-
-	removeCard() {
-			this.setState(state => {
-				state.cards.shift();
-				return { cards: state.cards }
-			})
 	}
 
 	isFoundationEmpty() {
@@ -38,12 +29,21 @@ class Foundation extends Component {
 		return cardDetails.suit === this.state.suit && cardDetails.rank === this.state.nextRank.toString();
 	}
 
+	isCardAddable(cardDetails) {
+		return (this.isFoundationEmpty() && cardDetails.rank === "1") || this.isNextCard(cardDetails);
+	}
+
 	createCard(card, cardDetails) {
 		return (
-			<div draggable='true' onDragStart={this.dragStart}>
-				<Card src={card.src} id={card.id} className={card.className} suit={cardDetails.suit} rank={cardDetails.rank} />
-			</div>
+			<Card src={card.src} id={card.id} className={card.className} suit={cardDetails.suit} rank={cardDetails.rank} />
 		)
+	}
+
+	removeCard() {
+		this.setState(state => {
+			state.cards.shift();
+			return { cards: state.cards }
+		})
 	}
 
 	addCard(card, cardDetails) {
@@ -57,25 +57,23 @@ class Foundation extends Component {
 		})
 	}
 
+	allowDrop(event) {
+		event.preventDefault();
+	}
+
 	drop(event) {
 		let card = document.getElementById(event.dataTransfer.getData("text"));
-		let cardDetails = { suit: card.id.split('-')[0], rank: card.id.split('-')[1] };
-		if (this.isFoundationEmpty() && cardDetails.rank === "1") {
-			this.addCard(card, cardDetails);
-			if (card.parentNode.parentNode.id === 'waste') {
-				window.waste.removeCard();
-			}
-			if (card.parentNode.parentNode.parentNode.className === 'pile') {
-				window[card.parentNode.parentNode.parentNode.id].removeCard();
-			}
+		if (card === null) {
+			return;
 		}
-		if (this.isNextCard(cardDetails)) {
+		let cardDetails = { suit: card.id.split('-')[0], rank: card.id.split('-')[1] };
+		if (this.isCardAddable(cardDetails)) {
 			this.addCard(card, cardDetails);
-			if (card.parentNode.parentNode.id === 'waste') {
+			if (card.parentNode.id === 'waste') {
 				window.waste.removeCard();
 			}
-			if (card.parentNode.parentNode.parentNode.className === 'pile') {
-				window[card.parentNode.parentNode.parentNode.id].removeCard();
+			if (card.parentNode.parentNode.className === 'pile') {
+				window[card.parentNode.parentNode.id].removeCard();
 			}
 		}
 	}
@@ -93,10 +91,10 @@ class Foundations extends Component {
 	render() {
 		return (
 			<div className='foundations'>
-				<Foundation className='foundation' id="foundation1" ref={(foundation1) => window.foundation1 = foundation1}/>
-				<Foundation className='foundation' id="foundation2" ref={(foundation2) => window.foundation2 = foundation2}/>
-				<Foundation className='foundation' id="foundation3" ref={(foundation3) => window.foundation3 = foundation3}/>
-				<Foundation className='foundation' id="foundation4" ref={(foundation4) => window.foundation4 = foundation4}/>
+				<Foundation className='foundation' id="foundation1" ref={(foundation1) => window.foundation1 = foundation1} />
+				<Foundation className='foundation' id="foundation2" ref={(foundation2) => window.foundation2 = foundation2} />
+				<Foundation className='foundation' id="foundation3" ref={(foundation3) => window.foundation3 = foundation3} />
+				<Foundation className='foundation' id="foundation4" ref={(foundation4) => window.foundation4 = foundation4} />
 			</div>
 		);
 	}
