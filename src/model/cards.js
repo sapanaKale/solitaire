@@ -1,6 +1,7 @@
 import cards from '../data/cards.js'
+import ld from 'lodash';
 
-const cardsDeck = cards.slice(0);
+const cardsDeck = ld.shuffle(cards.slice(0));
 
 class Cards {
 	constructor(){
