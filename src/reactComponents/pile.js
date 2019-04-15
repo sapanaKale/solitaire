@@ -36,12 +36,10 @@ class Pile extends Component {
 			if (state.upCards[0] !== undefined) {
 				let suit = state.upCards[0].props.suit;
 				let rank = state.upCards[0].props.rank;
-				console.log(rank);
 				return { lastColor: this.colors[suit], currentRank: rank - 1 };
 			}
 		})
 	}
-
 
 	isPileEmpty() {
 		return this.state.upCards[0] === undefined;
@@ -104,7 +102,6 @@ class Pile extends Component {
 	}
 
 	removeCardsFrom(cardPosition) {
-		console.log(this.state.upCards);
 		this.setState(state => {
 			state.upCards.splice(cardPosition);
 			if (state.upCards.length === 0) {

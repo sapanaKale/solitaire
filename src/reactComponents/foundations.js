@@ -11,14 +11,8 @@ class Foundation extends Component {
 		this.drop = this.drop.bind(this);
 		this.isFoundationEmpty = this.isFoundationEmpty.bind(this);
 		this.isNextCard = this.isNextCard.bind(this);
-		this.dragStart = this.dragStart.bind(this);
 		this.removeCard = this.removeCard.bind(this);
 		this.isCardAddable = this.isCardAddable.bind(this);
-	}
-
-
-	dragStart(event) {
-		event.dataTransfer.setData("text", event.target.id)
 	}
 
 	isFoundationEmpty() {

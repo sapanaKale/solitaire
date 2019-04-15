@@ -9,12 +9,13 @@ class Card extends Component {
 
 	dragStart(event) {
 		event.dataTransfer.setData("text", event.target.id);
+		event.dataTransfer.setDragImage(event.target, 0, 0);
 	}
 
 	render() {
 		let source = this.props.src;
 		return (
-			<img src={source} alt="cardImg" className={this.props.className} id={this.props.id} suit={this.props.suit} rank={this.props.rank} draggable='true' onDragStart={this.dragStart}/>
+			<img src={source} alt="cardImg" className={this.props.className} id={this.props.id} suit={this.props.suit} rank={this.props.rank} draggable='true' onDragStart={this.dragStart} />
 		)
 	}
 }

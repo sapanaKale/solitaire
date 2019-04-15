@@ -22,13 +22,10 @@ class Waste extends Component {
 	}
 
 	render() {
-		// console.log('it called');
-		// console.log(this.state.cards);
+;
 		return (
 			<div id={this.props.id} className={this.props.className} ref="waste">
-				{/* <div draggable='true' onDragStart={this.dragStart}> */}
 					{this.state.cards[0]}
-				{/* </div> */}
 			</div>
 		)
 	}
